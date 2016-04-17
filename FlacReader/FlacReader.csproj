@@ -7,7 +7,7 @@
     <ProjectGuid>{9B03379B-BDD8-4732-8015-3022BE5C6B46}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FlacReader</RootNamespace>
+    <RootNamespace>it.albe</RootNamespace>
     <AssemblyName>FlacReader</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

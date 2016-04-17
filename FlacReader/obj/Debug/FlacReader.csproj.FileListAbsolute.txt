@@ -4,3 +4,5 @@ C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Debug\FlacReader.exe
 C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Debug\FlacReader.pdb
 C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Debug\FlacReader.exe
 C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Debug\FlacReader.pdb
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Debug\FlacReader.csproj.GenerateResource.Cache
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Debug\it.albe.Form1.resources

@@ -1,0 +1,7 @@
+C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Release\FlacReader.exe.config
+C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Release\FlacReader.exe
+C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Release\FlacReader.pdb
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Release\it.albe.Form1.resources
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Release\FlacReader.csproj.GenerateResource.Cache
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Release\FlacReader.exe
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Release\FlacReader.pdb
