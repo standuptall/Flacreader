@@ -1,0 +1,6 @@
+C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Debug\FlacReader.exe.config
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Debug\FlacReader.csprojResolveAssemblyReference.cache
+C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Debug\FlacReader.exe
+C:\Alberto\FlacReader\FlacReader\FlacReader\bin\Debug\FlacReader.pdb
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Debug\FlacReader.exe
+C:\Alberto\FlacReader\FlacReader\FlacReader\obj\Debug\FlacReader.pdb
