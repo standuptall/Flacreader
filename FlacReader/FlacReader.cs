@@ -141,6 +141,10 @@ namespace it.albe
             comments = new Dictionary<string, string>();
             metadataDict = new Dictionary<string, string>();
             metadataInfo = new System.Data.DataTable();
+            metadataInfo.Columns.Add("Metadata");
+            metadataInfo.Columns.Add("Code");
+            metadataInfo.Columns.Add("Offset");
+            metadataInfo.Columns.Add("Length");
             this.filepath = filepath;
             user_comment_list_length = 0;
             FileStream stream;
@@ -160,7 +164,7 @@ namespace it.albe
                 stream.Read(array, 0, 3);  //leggo tre byte per la lunghezza del metadata
                 Int32 metadata_length = array[0] * 65536 + array[1] * 256 + array[2];
                 string metaName;
-                switch (flag)
+                switch ((flag<<1)>>1)
                 {
                     case 0: metaName = "STREAMINFO"; break;
                     case 1: metaName = "PADDING"; break;
@@ -171,7 +175,12 @@ namespace it.albe
                     case 6: metaName = "PICTURE"; break;
                     default: metaName = "UNKNOWN"; break;
                 }
-                metadataDict[metaName] = String.Format("{0,8}", Convert.ToString(flag, 2)).Replace(" ","0");
+                System.Data.DataRow row = metadataInfo.NewRow();
+                row["Metadata"] = metaName;
+                row["Code"] = String.Format("{0,8}", Convert.ToString(flag, 2)).Replace(" ", "0");
+                row["Offset"] = Convert.ToString(stream.Position-4,16).ToUpper();
+                row["Length"] = Convert.ToString(metadata_length, 16).ToUpper();
+                metadataInfo.Rows.Add(row);
                 if (flag == 4 || flag == 132)   //se è un vorbis comment cioè 00000100 oppure 10000100
                 {
                     metadata_comments_length = metadata_length;

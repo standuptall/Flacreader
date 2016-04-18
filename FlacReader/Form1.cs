@@ -59,7 +59,7 @@ namespace it.albe
                 row[1] = entry.Value;
                 data.Rows.Add(row);
             }
-            dataGridView2.DataSource = data;
+            dataGridView2.DataSource = flacReader.metadataInfo;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
