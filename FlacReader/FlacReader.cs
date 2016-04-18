@@ -7,12 +7,15 @@ using System.IO;
 
 namespace it.albe
 {
+    /*
+     * 
+     * TODO: devo implementare la creazione di vorbis_comment per file che non ce l'hanno
+     */
     public class FlacReader
     {
         public static string vendor_string;
         public static Int32 user_comment_list_length;
         private string filepath;
-        private bool data_written = false;
         private class _metadata {
             public struct _streaminfo
             {
@@ -129,11 +132,15 @@ namespace it.albe
         _metadata metadata;
         private int metadata_comments_length;
         public Dictionary<string,string> comments;
+        public Dictionary<string, string> metadataDict;
+        public System.Data.DataTable metadataInfo;
         public FlacReader(string filepath)
         {
             metadata_comments_length = 0;
-            metadata = new _metadata();
+            metadata = new _metadata();  //oggetto che memorizza se sono presenti o no metadata specifici
             comments = new Dictionary<string, string>();
+            metadataDict = new Dictionary<string, string>();
+            metadataInfo = new System.Data.DataTable();
             this.filepath = filepath;
             user_comment_list_length = 0;
             FileStream stream;
@@ -152,6 +159,19 @@ namespace it.albe
                 metadata.setMetadata(flag);
                 stream.Read(array, 0, 3);  //leggo tre byte per la lunghezza del metadata
                 Int32 metadata_length = array[0] * 65536 + array[1] * 256 + array[2];
+                string metaName;
+                switch (flag)
+                {
+                    case 0: metaName = "STREAMINFO"; break;
+                    case 1: metaName = "PADDING"; break;
+                    case 2: metaName = "APPLICATION"; break;
+                    case 3: metaName = "SEEKTABLE"; break;
+                    case 4: metaName = "VORBIS_COMMENT"; break;
+                    case 5: metaName = "CUESHEET"; break;
+                    case 6: metaName = "PICTURE"; break;
+                    default: metaName = "UNKNOWN"; break;
+                }
+                metadataDict[metaName] = String.Format("{0,8}", Convert.ToString(flag, 2)).Replace(" ","0");
                 if (flag == 4 || flag == 132)   //se è un vorbis comment cioè 00000100 oppure 10000100
                 {
                     metadata_comments_length = metadata_length;
@@ -175,16 +195,23 @@ namespace it.albe
         }
         public void addComment(string field, string value)
         {
-            if (comments[field] != null)   //se il commento già esiste
+            try
             {
-                string val = comments[field];
-                metadata_comments_length -= (field.Length + val.Length + 1);   //tolgo la lunghezza originaria
-                metadata_comments_length -= 4;
+                if (comments[field] != null)   //se il commento già esiste
+                {
+                    string val = comments[field];
+                    metadata_comments_length -= (field.Length + val.Length + 1);   //tolgo la lunghezza originaria
+                    metadata_comments_length -= 4;
+                }
             }
-            comments[field] = value;
-            user_comment_list_length++;
-            metadata_comments_length += 4; //aggiungo 4 byte per memorizzare la lunghezza del comment sul file
-            metadata_comments_length += field.Length + value.Length + 1;  //aggiungo la lunghezza del commento più il simbolo uguale
+            catch(KeyNotFoundException e)
+            {
+                comments[field] = value;
+                user_comment_list_length++;
+                metadata_comments_length += 4; //aggiungo 4 byte per memorizzare la lunghezza del comment sul file
+                metadata_comments_length += field.Length + value.Length + 1;  //aggiungo la lunghezza del commento più il simbolo uguale
+            }
+            
             
         }
         public void writeAll()  //file esistente quindi riverso il contenuto su un file _temp
@@ -294,7 +321,6 @@ namespace it.albe
                 stream.Write(array, 0, 4);
                 stream.Write(arrayName, 0, length);
             }
-            data_written = true;
         }
     }
 }
